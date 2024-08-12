@@ -6,15 +6,15 @@ from .models import Currency, UserAccount, Order, TotalAmount
 class BuyOrderViewTest(APITestCase):
 
     def setUp(self):
-        # ایجاد داده‌های اولیه برای تست‌ها
+
         self.currency = Currency.objects.create(name="ABAN", price=4)
         self.user_account = UserAccount.objects.create(id=1, balance=100)
-        self.url = reverse('buy-order')  # فرض می‌کنیم نام url ویو 'buy-order' است
+        self.url = reverse('buy-order')
 
     def test_successful_order(self):
         data = {
             "currency": "ABAN",
-            "amount": 2,  # قیمت کل = 4 * 2 = 8
+            "amount": 2,
             "user_account": self.user_account.id
         }
 

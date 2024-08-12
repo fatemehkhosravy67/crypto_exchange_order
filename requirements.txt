@@ -7,3 +7,6 @@ typing_extensions==4.12.2
 
 
 #sudo chmod 666 /var/run/docker.sock
+#docker-compose exec web sh
+# docker-compose up -d
+# python manage.py createsuperuser

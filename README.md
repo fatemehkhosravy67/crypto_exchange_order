@@ -36,8 +36,8 @@ This project is a simple Django-based API for managing buy orders of a specific 
 
 ### Clone the repository:
 ```bash
-git clone https://github.com/your-username/buyorder-django-api.git
-cd buyorder-django-api
+git clone https://github.com/fatemehkhosravy67/crypto_exchange_order.git
+cd crypto_exchange_order
 ```
 
 ### Create and activate a virtual environment:
@@ -87,12 +87,12 @@ To run this project in a Docker container:
 
 1. **Build the Docker image**:
     ```bash
-    docker build -t buyorder-django-api .
+    docker build -t crypto_exchange_order .
     ```
 
 2. **Run the Docker container**:
     ```bash
-    docker run -d -p 8000:8000 buyorder-django-api
+    docker run -d -p 8000:8000 crypto_exchange_order
     ```
 
 The API will be available at `http://127.0.0.1:8000/`.
@@ -100,7 +100,7 @@ The API will be available at `http://127.0.0.1:8000/`.
 ## API Endpoints
 
 ### Place a Buy Order
-- **Endpoint**: `/api/orders/`
+- **Endpoint**: `buy/`
 - **Method**: `POST`
 - **Request Body**:
     ```json
@@ -142,7 +142,7 @@ The test suite covers various scenarios, including successful order placements, 
 ```
 buyorder-django-api/
 │
-├── app/                        # Main application directory
+├── order/                        # Main application directory
 │   ├── migrations/             # Database migrations
 │   ├── models.py               # Database models
 │   ├── serializers.py          # API serializers
@@ -150,7 +150,7 @@ buyorder-django-api/
 │   ├── tests.py                # Unit tests for the app
 │   └── urls.py                 # URL routing for the app
 │
-├── buyorder/                   # Project configuration directory
+├── crypto_order/                   # Project configuration directory
 │   ├── settings.py             # Project settings
 │   ├── urls.py                 # Project URLs
 │   └── wsgi.py                 # WSGI application

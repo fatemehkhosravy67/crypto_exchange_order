@@ -23,7 +23,7 @@ class TotalAmountSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['currency_name', 'amount', 'price', 'user_account', 'timestamp']
+        fields = ['currency_name', 'amount', 'currency_price', 'user_account', 'timestamp']
 
     def validate_amount(self, value):
         if value <= 0:

@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Order, Currency, UserAccount, TotalAmount
 from .serializers import OrderSerializer
 
+
 class BuyOrderView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
@@ -34,21 +35,21 @@ class BuyOrderView(APIView):
             return Response({"error": "Invalid amount provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            if total_price >= 10:
-                print('Total price is greater than 10')
-                self.buy_from_exchange(currency_name, total_price + total_amount.total_amount)
-                total_amount.total_amount = 0  # Reset the total_amount to zero
-                total_amount.save()
-            else:
-                print('Total price is less than 10')
-                total_amount.total_amount += total_price
-                total_amount.save()
-                if total_amount.total_amount >= 10:
-                    self.buy_from_exchange(currency_name, total_amount.total_amount)
+            if user_account.deduct_balance(total_price):
+                if total_price >= 10:
+                    print('Total price is greater than 10')
+                    self.buy_from_exchange(currency_name, total_price + total_amount.total_amount)
                     total_amount.total_amount = 0  # Reset the total_amount to zero
                     total_amount.save()
+                else:
+                    print('Total price is less than 10')
+                    total_amount.total_amount += total_price
+                    total_amount.save()
+                    if total_amount.total_amount >= 10:
+                        self.buy_from_exchange(currency_name, total_amount.total_amount)
+                        total_amount.total_amount = 0  # Reset the total_amount to zero
+                        total_amount.save()
 
-            if user_account.deduct_balance(total_price):
                 order = Order.objects.create(
                     currency_name=currency,
                     amount=amount,
@@ -62,7 +63,6 @@ class BuyOrderView(APIView):
             return Response({"error": "An error occurred while processing the order: " + str(e)},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
     def buy_from_exchange(self, currency_name, amount):
         """
         A http request to buy a currency from exchange
@@ -73,5 +73,3 @@ class BuyOrderView(APIView):
         # Implement the logic to purchase from the external exchange
         print(f"Buying {currency_name} from exchange at total price {amount}")
         pass
-
-
